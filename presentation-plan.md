@@ -25,9 +25,9 @@
    - **Przykład 2: Tworzenie pliku obiektowego**
      - Kompilacja pliku `main.c` do pliku obiektowego (`main.o`) przy użyciu `gcc -c`.
      - Omówienie zawartości pliku `.o` i jego znaczenia w procesie linkowania.
-   - **Przykład 3: Linkowanie z biblioteką Baresip**
-     - Przykład użycia `gcc` do połączenia plików obiektowych z biblioteką Baresip.
-     - Omówienie komendy `gcc -o myapp main.o -lbaresip` i analizy powstałego pliku wykonywalnego.
+   - **Przykład 3: Linkowanie**
+     - Przykład użycia `gcc` do połączenia plików obiektowych w plik wykonywalny.
+     - Omówienie komendy `ld` i analizy powstałego pliku wykonywalnego.
 
 ---
 

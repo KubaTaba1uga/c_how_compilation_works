@@ -42,6 +42,14 @@
           --end-group \
           -o example_2_static_program
  *
+ * Alternatywa z `gcc`:
+ * - Dla dynamicznego linkowania można po prostu użyć:
+ *   gcc example_2.o example_2_dep.o -o example_2_dynamic_program
+ *
+ * - Dla statycznego linkowania można użyć flagi `-static`:
+ *   gcc -static example_2.o example_2_dep.o -o example_2_static_program
+ *
+ *
  * Uruchomienie Programów:
  *
  * - Dynamiczny:
