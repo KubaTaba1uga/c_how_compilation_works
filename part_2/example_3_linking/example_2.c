@@ -12,10 +12,10 @@
  * - `example_2_dep.h`: Plik nagłówkowy deklarujący funkcje `print_pi`.
  *
  * Proces kompilacji:
- * 1. Kompilacja `example_2.c` do `example2.o`:
+ * 1. Kompilacja `example_2.c` do `example_2.o`:
  *    gcc -c example_2.c -o example_2.o
  *
- * 2. Kompilacja `example_2_dep.c` do `example2_dep.o`:
+ * 2. Kompilacja `example_2_dep.c` do `example_2_dep.o`:
  *    gcc -c example_2_dep.c -o example_2_dep.o
  *
  * 3. Linkowanie plików obiektowych za pomocą `ld` w celu utworzenia programu
@@ -39,19 +39,18 @@
               /usr/lib/gcc/x86_64-linux-gnu/12/libgcc.a \
               /usr/lib/gcc/x86_64-linux-gnu/12/libgcc_eh.a \
               /usr/lib/x86_64-linux-gnu/libc.a \
-              /usr/lib/x86_64-linux-gnu/libm.a \
           --end-group \
-          -o example_2_program_static
+          -o example_2_static_program
  *
  * Uruchomienie Programów:
  *
  * - Dynamiczny:
  *   Upewnij się, że biblioteka dynamiczna jest w ścieżce:
  *   export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
- *   ./example2_dynamic_program
+ *   ./example_2_dynamic_program
  *
  * - Statyczny:
- *   ./example2_static_program
+ *   ./example_2_static_program
  *
  * Oczekiwany Wynik po Uruchomieniu Programów:
  *
@@ -61,31 +60,44 @@
  * ```
  *
  * Analiza Symboli za pomocą `ldd` i `objdump`:
- *    ldd example2_dynamic_program
- *    objdump -T example2_dynamic_program
- *    ldd example2_static_program
- *    objdump -t example2_static_program
+ *    ldd example_2_dynamic_program
+ *    objdump -T example_2_dynamic_program
+ *    ldd example_2_static_program
+ *    objdump -t example_2_static_program
  *
- * Dlaczego używanie `ld` wymaga ręcznego dołączania plików startowych i
- * bibliotek:
+ * Wyjaśnienie wyniku `ldd`:
+ * Kiedy uruchamiasz `ldd example_2_dynamic_program`, zobaczysz następujący
+ wynik:
  *
- * Kiedy używasz `ld` bezpośrednio, bierzesz na siebie odpowiedzialność za
- * dołączenie wszystkich niezbędnych plików startowych oraz bibliotek. `ld`
- * jest niskopoziomowym narzędziem do linkowania, które nie posiada wbudowanej
- * wiedzy o tym, które pliki są potrzebne do prawidłowego uruchomienia
- * programu. Dlatego musisz ręcznie określić pliki startowe i biblioteki.
+ * ```
+ * linux-vdso.so.1 (0x00007ffd073ef000)
+ * libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007d5e29de9000)
+ * /lib64/ld-linux-x86-64.so.2 (0x00007d5e29fe1000)
+ * ```
  *
- * Pliki Startowe:
- * - `crt1.o`
- * - `crti.o`
- * - `crtn.o`
+ * Wyjaśnienie:
+ * 1. `linux-vdso.so.1`:
+ *    - Virtual Dynamic Shared Object (VDSO) to specjalna biblioteka dostarczana
+ *         przez kernel w celu optymalizacji wywołań systemowych.
+ *    - Jest mapowana bezpośrednio do przestrzeni adresowej procesu w celu
+ *         szybszego wykonywania niektórych wywołań systemowych.
  *
- * Biblioteki:
- * - `libc.a` lub `libc.so`
+ * 2. `libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6`:
+ *    - Jest to biblioteka GNU C (glibc), która dostarcza standardowe funkcje
+ *         języka C, takie jak `printf` i `scanf`.
+ *    - Jest wymagana przez większość programów w języku C i jest dynamicznie
+ *         ładowana podczas uruchamiania programu.
  *
- * Bez dołączenia tych plików, program nie będzie miał poprawnego punktu
- * wejścia, co spowoduje błędy podczas linkowania lub uruchamiania.
- * Więcej informacji tutaj: https://wiki.osdev.org/Creating_a_C_Library
+ * 3. `/lib64/ld-linux-x86-64.so.2`:
+ *    - Jest to dynamiczny linker/loader odpowiedzialny za ładowanie i
+ *         linkowanie bibliotek dynamicznych podczas uruchamiania programu.
+ *    - Rozwiązuje zależności bibliotek i mapuje je do przestrzeni pamięci
+ *         procesu.
+ *
+ * Używaj polecenia `ldd`, aby zobaczyć, jakie biblioteki współdzielone są
+ *    wymagane przez programy linkowane dynamicznie i zweryfikować, czy
+ *    wszystkie zależności są poprawnie rozwiązane.
+ *
  */
 #include <stdio.h>
 
