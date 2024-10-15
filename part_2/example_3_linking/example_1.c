@@ -24,10 +24,10 @@
  *
  * 3. Linkowanie plików obiektowych za pomocą ld w celu utworzenia programu
  *    wykonywalnego:
- *    ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 \
-         /usr/lib/x86_64-linux-gnu/crt1.o \
-         /usr/lib/x86_64-linux-gnu/crti.o \
-         /usr/lib/x86_64-linux-gnu/crtn.o \
+ *    ld -dynamic-linker /lib64/ld-linux-x86-64.so.2  \
+         /usr/lib/x86_64-linux-gnu/crt1.o             \
+         /usr/lib/x86_64-linux-gnu/crti.o             \
+         /usr/lib/x86_64-linux-gnu/crtn.o             \
          example1.o example1_dep.o -lc -o example1_program
  *
  * Uwaga:
@@ -38,20 +38,14 @@
  * Oczekiwany wynik po uruchomieniu programu:
  *
  * Welcome in Super math app
- * The value of pi is approximately 3.141590
- *
- * Analiza symboli za pomocą objdump:
- * objdump -t example1.o
- * objdump -t example1_dep.o
- * objdump -t example1_program
+ * The value of pi is approximately: 3.141590
  *
  * Uwagi dotyczące użycia ld:
  * Używając ld bezpośrednio, bierzesz na siebie odpowiedzialność za dołączenie
  * wszystkich niezbędnych plików startowych oraz bibliotek. ld jest
- niskopoziomowym
- * narzędziem do linkowania, które nie posiada wbudowanej wiedzy o tym, które
- * pliki są potrzebne do prawidłowego uruchomienia programu. Dlatego musisz
- * ręcznie określić pliki startowe i biblioteki.
+ * niskopoziomowym narzędziem do linkowania, które nie posiada wbudowanej wiedzy
+ * o tym, które pliki są potrzebne do prawidłowego uruchomienia programu.
+ * Dlatego musisz ręcznie określić pliki startowe i biblioteki.
  *
  * Pliki startowe:
  * - crt1.o
@@ -65,9 +59,9 @@
  * wejścia, co spowoduje błędy podczas linkowania lub uruchamiania.
  * Więcej informacji: https://wiki.osdev.org/Creating_a_C_Library
  */
+#include <stdio.h>
 
 #include "example_1_dep.h"
-#include <stdio.h>
 
 const char app_id[] = "Super math app";
 

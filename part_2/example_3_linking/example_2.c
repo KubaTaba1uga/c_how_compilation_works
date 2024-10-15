@@ -21,7 +21,7 @@
  * 3. Linkowanie plików obiektowych za pomocą `ld` w celu utworzenia programu
  *    wykonywalnego:
  *    - Dla linkowania dynamicznego:
- *      ld -dynamic-linker /lib64/ld-linux-x86-64.so.2   \
+ *      ld -dynamic-linker /lib64/ld-linux-x86-64.so.2  \
           /usr/lib/x86_64-linux-gnu/crt1.o              \
           /usr/lib/x86_64-linux-gnu/crti.o              \
           /usr/lib/x86_64-linux-gnu/crtn.o              \
@@ -29,12 +29,19 @@
           -o example_2_dynamic_program
  *
  *    - Dla linkowania statycznego:
- *      ld -static                          \
+ *      ld -static \
           /usr/lib/x86_64-linux-gnu/crt1.o \
           /usr/lib/x86_64-linux-gnu/crti.o \
           /usr/lib/x86_64-linux-gnu/crtn.o \
-          -lc example_2.o example_2_dep.o  \
-          -o example_2_static_program
+          example_2.o			     \
+          example_2_dep.o \
+          --start-group \
+              /usr/lib/gcc/x86_64-linux-gnu/12/libgcc.a \
+              /usr/lib/gcc/x86_64-linux-gnu/12/libgcc_eh.a \
+              /usr/lib/x86_64-linux-gnu/libc.a \
+              /usr/lib/x86_64-linux-gnu/libm.a \
+          --end-group \
+          -o example_2_program_static
  *
  * Uruchomienie Programów:
  *
@@ -49,18 +56,15 @@
  * Oczekiwany Wynik po Uruchomieniu Programów:
  *
  * ```
- * Welcome to Awesome App
-
+ * Welcome in Super math app
+ * The value of pi is approximately 3.141590
  * ```
  *
  * Analiza Symboli za pomocą `ldd` i `objdump`:
- *
- * ```sh
- * ldd example2_dynamic_program
- * objdump -T example2_dynamic_program
- * ldd example2_static_program
- * objdump -t example2_static_program
- * ```
+ *    ldd example2_dynamic_program
+ *    objdump -T example2_dynamic_program
+ *    ldd example2_static_program
+ *    objdump -t example2_static_program
  *
  * Dlaczego używanie `ld` wymaga ręcznego dołączania plików startowych i
  * bibliotek:
@@ -83,11 +87,11 @@
  * wejścia, co spowoduje błędy podczas linkowania lub uruchamiania.
  * Więcej informacji tutaj: https://wiki.osdev.org/Creating_a_C_Library
  */
-
-#include "example_2_dep.h"
 #include <stdio.h>
 
-const char app_id[] = "Awesome Math App";
+#include "example_2_dep.h"
+
+const char app_id[] = "Super math app";
 
 int main() {
   printf("Welcome to %s\n", app_id);
