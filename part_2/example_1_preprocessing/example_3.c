@@ -7,7 +7,7 @@
  * jest włączany, a funkcja `print_pi` jest wywoływana w funkcji `main`.
  *
  * Aby zobaczyć wynik preprocessingu, użyj komendy:
- *   gcc -E example_3.c -o example.i
+ *   gcc -E example_3.c -o example_3.i
  *
  * Uwaga:
  * Dołączanie plików `.c` za pomocą `#include` jest ogólnie uważane za złą

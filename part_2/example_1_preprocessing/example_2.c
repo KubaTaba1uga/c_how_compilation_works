@@ -9,9 +9,9 @@
  * wstawia zawartość pliku nagłówkowego podczas preprocessingu.
  *
  * Aby zobaczyć wynik preprocessingu, użyj komendy:
- *   gcc -E example_2.c -o example.i
+ *   gcc -E example_2.c -o example_2.i
  *
- * Plik `example.i` zawiera wynik działania preprocesora.
+ * Plik `example_2.i` zawiera wynik działania preprocesora.
  * Otwórz ten plik w edytorze tekstu, aby zobaczyć, jak zawartość pliku
  * `example_2_dep.h` została wstawiona do `example_2.c`.
  */
