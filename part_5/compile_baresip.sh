@@ -142,6 +142,7 @@ if [ -d "$DIR" ]; then
   disable_tests test/main.c
   insert_test test/main.c test_dummy_and_caller
   insert_line_if_not_exists "test/test.h" "int test_dummy_and_caller(void);"
+  rm -rf ./modules/dummy_module ./modules/caller_module
   cp -fr ../$SRC_DIR/dummy_module/ ./modules/dummy_module
   cp -fr ../$SRC_DIR/caller_module/ ./modules/caller_module
   
@@ -149,7 +150,7 @@ if [ -d "$DIR" ]; then
   cmake -B build -DEXTRA_MODULES="dummy_module;caller_module" || { echo "CMake configuration failed"; exit 1; }
 
   # Budowanie z użyciem CMake z równoległym procesowaniem
-  cmake --build build -j 1 || { echo "Build failed"; exit 1; }
+  cmake --build build -j 1 -v || { echo "Build failed"; exit 1; }
 
 else
   echo "Error: Directory $DIR does not exist."

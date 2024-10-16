@@ -1,8 +1,3 @@
-/**
- * @file test/account.c  Tests for account
- *
- * Copyright (C) 2010 - 2017 Alfred E. Heggestad
- */
 #include <string.h>
 
 #include <re.h>
