@@ -12,8 +12,9 @@ disable_tests() {
 
   # Read the input file line by line and store the modified content in a temp file
   while IFS= read -r line; do
-    if echo "$line" | grep -q "TEST(.*call.*)"; then
-      # If the line contains "call", comment it out
+    # Check if the line contains "TEST" with "call" and is not already commented
+    if echo "$line" | grep -q "TEST(.*call.*)" && ! echo "$line" | grep -q "^\s*\/\*"; then
+      # If the line contains "call" and is not commented, comment it out
       echo "    /* $line */" >> "$temp_file"
     else
       # Write other lines unchanged
@@ -34,6 +35,12 @@ insert_test() {
   local test_name="$2"
   local test_source="${test_name}.c"
   
+  # Check if the test is already present in the input file
+  if grep -q "TEST($test_name)," "$input_file"; then
+    echo "Test '$test_name' already exists in $input_file, skipping insertion."
+    return
+  fi
+
   # Get the directory of the input file
   local dir=$(dirname "$input_file")
 
