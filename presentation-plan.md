@@ -1,5 +1,7 @@
 ### **Plan prezentacji: Kompilowanie w C na przykładzie biblioteki Baresip**
 
+---
+
 **1. Wprowadzenie do spotkania**
    - **Cel spotkania**: Przedstawienie procesu kompilacji w C na przykładzie biblioteki Baresip, z naciskiem na zrozumienie różnic między kompilacją statyczną a dynamiczną oraz wpływu użycia `static` na widoczność funkcji i zmiennych. Po prezentacji planujemy omówić strategie testowania aplikacji w kontekście zdobytej wiedzy.
    - **Plan prezentacji**:
@@ -8,6 +10,7 @@
      - Wpływ słowa kluczowego `static` na widoczność funkcji i zmiennych.
      - Dobre praktyki w zakresie importowania plików `.c` i `.h`.
      - Omówienie strategii kompilacji i wyboru między kompilacją statyczną a dynamiczną w projekcie Baresip.
+     - **Inspekcja kompilacji repozytorium Baresip**: Analiza testów wykonywalnych i plików obiektowych.
      - Sesja Q&A i omówienie zadań do dalszej dyskusji.
    - **Uczestnicy**: Zespół odpowiedzialny za rozwój i testowanie Baresip.
    - **Czas trwania**: 1 godzina, z możliwością wydłużenia o 15 minut na pytania.
@@ -61,15 +64,14 @@
 
 ---
 
-**5. Dobre praktyki w zakresie importowania plików `.c` i `.h`**
-   - **Omówienie różnic między plikami `.c` i `.h`**:
-     - Pliki `.h` jako deklaracje funkcji i zmiennych.
-     - Pliki `.c` jako implementacje.
-     - Rola plików nagłówkowych w rozdzielaniu kodu i unikanie błędów związanych z wielokrotnym definiowaniem.
-   - **Przykład 7: `#include` pliku `.c` vs. pliku `.h`**
-     - Analiza, co się dzieje, gdy używamy `#include "module.c"` zamiast pliku nagłówkowego.
-     - Konsekwencje związane z powielaniem definicji i problemy podczas linkowania.
-   - **Wnioski**: Najlepsze praktyki w zarządzaniu plikami i organizacji kodu w projekcie C, aby uniknąć błędów.
+**5. Inspekcja kompilacji repozytorium Baresip**
+   - **Sprawdzenie plików obiektowych**:
+     - Analiza plików `.o`, które powstały podczas kompilacji, przy pomocy narzędzi takich jak `nm`, `objdump`.
+     - Przegląd funkcji i symboli znajdujących się w obiektach oraz ich relacje w procesie linkowania.
+   - **Testy wykonywalne**:
+     - Omówienie procesu kompilacji pliku testowego w repozytorium Baresip.
+     - Sprawdzenie, jakie obiekty i funkcje są używane przez testy.
+     - Analiza, czy są testowane wszystkie kluczowe ścieżki i funkcjonalności aplikacji.
 
 ---
 
@@ -105,7 +107,7 @@
 ### **Kryteria akceptacji - Sprawdzenie:**
 - Prezentacja zawiera dokładne omówienie procesu kompilacji w C z przykładami oraz wyjaśnieniem wszystkich kluczowych zagadnień.
 - Przykłady kodu są dostępne w repozytorium, działają poprawnie i są zgodne z biblioteką Baresip.
-- Zespół lepiej rozumie różnice między kompilacją statyczną a dynamiczną, wpływ `static` i sposób organizacji plików `.c` i `.h`.
+- Zespół lepiej rozumie różnice między kompilacją statyczną a dynamiczną, wpływ `static
+
+` i sposób organizacji plików `.c` i `.h`.
 - Zostały zdefiniowane zadania do dyskusji w zakresie wyboru strategii testowania i kompilacji w projekcie Baresip.
-
-

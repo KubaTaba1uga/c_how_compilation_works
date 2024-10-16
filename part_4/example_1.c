@@ -46,9 +46,8 @@
  * Oczekiwany wynik programu:\
  * ```
  * Welcome to the static function test.
- * Hello from file1: counter = 0
- * Hello from static function in file1: static_counter = 0
- * Hello from file2: counter = 1
+ * Hello from example 1: counter = 0
+ * Hello from example 1 dep: counter = 1
  * Hello from static function in file2
  * ```
  */
@@ -69,6 +68,7 @@ int main() {
   print_message(); // Funkcja z example_1.c lub example_1_dep.c (w zależności od
                    // kolejności linkowania)
 
+  print_counter();
   // Próba wywołania funkcji `static_message` spowoduje błąd kompilacji,
   // ponieważ funkcja statyczna jest niewidoczna poza swoim plikiem.
   // static_message(); // Błąd: nie można znaleźć definicji tej funkcji
