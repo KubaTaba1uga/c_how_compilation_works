@@ -4,7 +4,7 @@
  * Opis:
  * Ten plik źródłowy w języku C jest głównym plikiem programu, który demonstruje
  * prawidłowe użycie plików nagłówkowych (.h) oraz osobnych plików źródłowych
- * (.c) do tworzenia modularnego i łatwo utrzymywalnego projektu.
+ * (.c).
  *
  * Struktura plików:
  * - `example_2.c`: Główny plik źródłowy, który zawiera funkcję `main`.
