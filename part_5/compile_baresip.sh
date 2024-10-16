@@ -5,6 +5,9 @@
 # Ścieżka do katalogu baresip
 DIR="baresip"
 
+# Source dir
+SRC_DIR="example_1_no_c_include"
+
 disable_tests() {
   # Input file provided as a function argument
   local input_file="$1"
@@ -109,7 +112,7 @@ insert_test() {
   # Replace the original CMakeLists.txt with the modified content
   mv "$temp_file" "$cmake_file"
 
-  cp ../$test_source test/
+  cp -f ../$SRC_DIR/$test_source test/
 
   echo "Source file insertion complete. '$test_source' has been added to $cmake_file"
 }
@@ -137,14 +140,16 @@ if [ -d "$DIR" ]; then
   cd $DIR
 
   disable_tests test/main.c
-  insert_test test/main.c test_something
-  insert_line_if_not_exists "test/test.h" "int test_something(void);"
+  insert_test test/main.c test_dummy_and_caller
+  insert_line_if_not_exists "test/test.h" "int test_dummy_and_caller(void);"
+  cp -fr ../$SRC_DIR/dummy_module/ ./modules/dummy_module
+  cp -fr ../$SRC_DIR/caller_module/ ./modules/caller_module
   
   # Konfiguracja za pomocą CMake
-  cmake -B build || { echo "CMake configuration failed"; exit 1; }
+  cmake -B build -DEXTRA_MODULES="dummy_module;caller_module" || { echo "CMake configuration failed"; exit 1; }
 
   # Budowanie z użyciem CMake z równoległym procesowaniem
-  cmake --build build -j || { echo "Build failed"; exit 1; }
+  cmake --build build -j 1 || { echo "Build failed"; exit 1; }
 
 else
   echo "Error: Directory $DIR does not exist."
