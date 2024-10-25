@@ -1,0 +1,2 @@
+Write example explaining how local variables (like those in main function) are viewed by the program.
+Why they are not stored in symbol table? Where are they stored?
